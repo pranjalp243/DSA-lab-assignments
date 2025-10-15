@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr, n, i, newSize;
+
+    // Step 1: Dynamic memory allocation using malloc()
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    ptr = (int *)malloc(n * sizeof(int)); // allocate memory
+
+    if (ptr == NULL) {
+        printf("Memory not allocated.\n");
+        return 0;
+    }
+
+    printf("Memory successfully allocated using malloc.\n");
+
+    // Step 2: Taking input
+    printf("Enter %d integers:\n", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &ptr[i]);
+    }
+
+    // Step 3: Display entered numbers
+    printf("Entered elements are:\n");
+    for (i = 0; i < n; i++) {
+        printf("%d ", ptr[i]);
+    }
+
+    // Step 4: Reallocating memory
+    printf("\n\nEnter new size: ");
+    scanf("%d", &newSize);
+
+    ptr = (int *)realloc(ptr, newSize * sizeof(int)); // resize memory
+
+    if (ptr == NULL) {
+        printf("Memory reallocation failed.\n");
+        return 0;
+    }
+
+    printf("Memory successfully reallocated.\n");
+
+    // Step 5: Taking new inputs if size increased
+    if (newSize > n) {
+        printf("Enter %d more elements:\n", newSize - n);
+        for (i = n; i < newSize; i++) {
+            scanf("%d", &ptr[i]);
+        }
+    }
+
+    // Step 6: Display final array
+    printf("Final array elements are:\n");
+    for (i = 0; i < newSize; i++) {
+        printf("%d ", ptr[i]);
+    }
+
+    // Step 7: Free memory
+    free(ptr);
+    printf("\n\nMemory freed successfully.\n");
+
+    return 0;
+}
